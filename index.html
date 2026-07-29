@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STELLARTALE // ARCHIVE SYSTEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* TEMAS DE CORES */
+        [data-theme="vintage-dark"] {
+            --bg-color: #0d0e11; --panel-bg: rgba(5, 20, 10, 0.85); --text-color: #a8f0ba;
+            --main-color: #33ff66; --accent-color: #ffb000; --dim-color: #1c522f;
+        }
+        [data-theme="vintage-light"] {
+            --bg-color: #e8f0e9; --panel-bg: #d2e4d4; --text-color: #112e17;
+            --main-color: #0b6623; --accent-color: #b56500; --dim-color: #8dae92;
+        }
+        [data-theme="spatial-dark"] {
+            --bg-color: #090a14; --panel-bg: rgba(15, 12, 35, 0.85); --text-color: #c4ccff;
+            --main-color: #00d9ff; --accent-color: #bd00ff; --dim-color: #2b2568;
+        }
+        [data-theme="spatial-light"] {
+            --bg-color: #eef0ff; --panel-bg: #dbe0ff; --text-color: #0f1238;
+            --main-color: #0051ca; --accent-color: #7b00ca; --dim-color: #9aa5e8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px; line-height: 1.6;
+            height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        body::before {
+            content: " "; display: block; position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            z-index: 100; background-size: 100% 3px; pointer-events: none;
+        }
+
+        header {
+            background: var(--panel-bg);
+            border-bottom: 2px solid var(--main-color);
+            padding: 8px 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            color: var(--main-color); font-weight: bold;
+        }
+
+        .controls-bar { display: flex; gap: 10px; align-items: center; }
+
+        select, button {
+            background: var(--bg-color); border: 1px solid var(--main-color);
+            color: var(--main-color); font-family: 'Fira Code', monospace;
+            padding: 3px 8px; font-size: 12px; cursor: pointer; outline: none;
+        }
+        select:hover, button:hover { background: var(--main-color); color: var(--bg-color); }
+
+        #main-container { display: flex; flex: 1; height: calc(100vh - 40px); }
+
+        sidebar {
+            width: 280px; background: var(--panel-bg);
+            border-right: 1px solid var(--dim-color); padding: 15px;
+            display: flex; flex-direction: column; gap: 15px; overflow-y: auto;
+        }
+
+        .side-title {
+            color: var(--accent-color); font-size: 12px;
+            border-bottom: 1px dashed var(--accent-color); padding-bottom: 4px;
+        }
+
+        .nav-list { list-style: none; }
+        .nav-item {
+            padding: 6px 8px; cursor: pointer; color: var(--text-color); transition: all 0.2s;
+        }
+        .nav-item:hover { background: var(--dim-color); color: var(--main-color); }
+
+        #terminal {
+            flex: 1; padding: 25px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 15px;
+            background: var(--bg-color);
+        }
+
+        .hero-title-box {
+            border: 2px double var(--main-color);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-decor { color: var(--accent-color); font-size: 12px; letter-spacing: 2px; margin-bottom: 8px; }
+        .hero-title { font-size: 38px; font-weight: 700; color: var(--main-color); letter-spacing: 6px; text-transform: uppercase; }
+        .hero-subdecor { color: var(--accent-color); font-size: 11px; margin-top: 8px; letter-spacing: 1px; }
+
+        p { margin-bottom: 15px; text-align: justify; }
+        blockquote { 
+            border-left: 3px solid var(--accent-color); 
+            padding-left: 12px; 
+            color: var(--accent-color); 
+            margin: 15px 0 20px 0;
+            font-style: italic;
+        }
+
+        .nav-buttons-bar {
+            display: flex; justify-content: space-between; margin-top: 20px;
+            border-top: 1px dashed var(--dim-color); padding-top: 10px;
+        }
+
+        .yt-box {
+            margin-top: auto; border: 1px solid var(--dim-color); padding: 10px;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .yt-box input {
+            background: transparent; border: 1px solid var(--dim-color);
+            color: var(--text-color); padding: 4px; font-size: 11px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .prompt-line { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .prompt-symbol { color: var(--accent-color); font-weight: bold; }
+        .cmd-input {
+            background: transparent; border: none; color: var(--main-color);
+            font-family: 'Fira Code', monospace; font-size: 14px; outline: none; flex: 1;
+        }
+    </style>
+</head>
+<body data-theme="vintage-dark">
+
+    <header>
+        <div>STELLARTALE OS // ARCHIVE SYSTEM</div>
+        <div class="controls-bar">
+            <select id="themeSelector" onchange="changeTheme()">
+                <option value="vintage-dark">💚 Vintage (Escuro)</option>
+                <option value="vintage-light">🍃 Vintage (Claro)</option>
+                <option value="spatial-dark">💜 Espacial (Escuro)</option>
+                <option value="spatial-light">💙 Espacial (Claro)</option>
+            </select>
+        </div>
+    </header>
+
+    <div id="main-container">
+        <sidebar>
+            <div class="side-title">NAVEGAÇÃO // WIKI</div>
+            <ul class="nav-list" id="sidebar-menu">
+                <li class="nav-item" onclick="loadContent('home')">> [00] INÍCIO / VISÃO GERAL</li>
+            </ul>
+
+            <div class="yt-box">
+                <div style="font-size:11px; color:var(--accent-color);">♫ ÁUDIO // YOUTUBE</div>
+                <input type="text" id="ytIdInput" placeholder="Cole a ID do vídeo ex: 5qap5aO4i9A">
+                <button onclick="loadYouTubeAudio()">CARREGAR MÚSICA</button>
+                <div id="ytPlayerContainer" style="display:none;"></div>
+            </div>
+        </sidebar>
+
+        <main id="terminal">
+            <div id="content-area"></div>
+
+            <div class="nav-buttons-bar">
+                <button onclick="navigatePage('back')">◄ ANTERIOR (BACK)</button>
+                <button onclick="loadContent('index')">≡ ÍNDICE (INDEX)</button>
+                <button onclick="navigatePage('next')">PRÓXIMO (NEXT) ►</button>
+            </div>
+
+            <div class="prompt-line">
+                <!-- NOME DO OPERADOR (Pode alterar quando quiser) -->
+                <span class="prompt-symbol" id="operator-prompt">operator@stellartale:~$</span>
+                <input type="text" class="cmd-input" id="cli" autofocus placeholder="Digite 'help', 'index', 'next', 'back'..." onkeydown="handleCommand(event)">
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let ytPlayer;
+
+        function changeTheme() {
+            const val = document.getElementById('themeSelector').value;
+            document.body.setAttribute('data-theme', val);
+        }
+
+        function loadYouTubeAudio() {
+            const videoId = document.getElementById('ytIdInput').value.trim();
+            if(!videoId) return;
+
+            if (ytPlayer) {
+                ytPlayer.loadVideoById(videoId);
+            } else {
+                ytPlayer = new YT.Player('ytPlayerContainer', {
+                    height: '0', width: '0',
+                    videoId: videoId,
+                    playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': videoId },
+                    events: { 'onReady': (e) => e.target.playVideo() }
+                });
+            }
+        }
+
+        // BASE DE DADOS E PÁGINAS DO STELLARTALE
+        const pageKeys = ['home']; // A lista de páginas para navegar em ordem sequencial
+        let currentPageIndex = 0;
+
+        const pages = {
+            home: `
+                <div class="hero-title-box">
+                    <div class="hero-decor">✦ ═━═━═━═[ ARCHIVE DATABASE ]═━═━═━═ ✦</div>
+                    <div class="hero-title">S T E L L A R T A L E</div>
+                    <div class="hero-subdecor">❖ SECTOR 00 // ERA POST-ICARUS ❖</div>
+                </div>
+
+                <blockquote>
+                    "O menino começou a se alegrar com o audacioso voo e abandonou o seu guia. Atraído pelo desejo do céu, dirigiu o seu caminho para o alto, voando cada vez mais perto do sol.<br><br>
+                    A proximidade do sol escaldante amoleceu a cera perfumada que prendia as penas. A cera derreteu completamente. Ícaro agitou os braços despidos, mas, sem penas, não conseguia reter o ar. E a sua boca, que gritava pelo nome do pai, foi engolida pelas águas do mar."<br>
+                    — Ovídio, Metamorfoses (Livro VIII)
+                </blockquote>
+
+                <p><strong>ICARUS-1</strong> foi o nome dado ao primeiro foguete lançado pela humanidade há milhares de anos. Porém, diferente do Ícaro de Creta, o ICARUS-1 foi muito além dos céus, e os lançamentos seguintes levaram os terráqueos para além do cosmos, muito além de tudo — dando início a uma jornada infinda pelo infinito escuro. A humanidade se espalhou pelo mar de estrelas e, em cada canto do cosmos, homens e mulheres encontraram maravilhas e horrores inigualáveis. Não eram os únicos seres vivos do universo e muito menos do próprio sistema solar. As fronteiras estavam abertas: de um planeta entre tantos outros, os humanos finalmente entravam na era cósmica.</p>
+
+                <p>Agora, cada estrela e planeta da Via Láctea já foram explorados; centenas destes mundos já foram colonizados, pilhados e dominados; já foram palco de guerras, do nascimento de tratados, do surgimento e da queda de civilizações. Ainda assim, sempre há um passo adiante, uma distância maior a ser percorrida e novos planetas para explorar, nomear, conquistar e povoar.</p>
+            `
+        };
+
+        function loadContent(key) {
+            if (key === 'index') {
+                showIndex();
+                return;
+            }
+            if (pages[key]) {
+                document.getElementById('content-area').innerHTML = pages[key];
+                const index = pageKeys.indexOf(key);
+                if (index !== -1) currentPageIndex = index;
+            }
+        }
+
+        function navigatePage(direction) {
+            if (direction === 'next') {
+                if (currentPageIndex < pageKeys.length - 1) {
+                    currentPageIndex++;
+                    loadContent(pageKeys[currentPageIndex]);
+                } else {
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">[SISTEMA]: Você já está no último registro da base de dados.</p>`;
+                }
+            } else if (direction === 'back') {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    loadContent(pageKeys[currentPageIndex]);
+                } else {
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">[SISTEMA]: Você já está no primeiro registro (Início).</p>`;
+                }
+            }
+        }
+
+        function showIndex() {
+            let html = `<h1>ÍNDICE DE ARQUIVOS // STELLARTALE WIKI</h1><p>Selecione um verbete abaixo para acessar os dados:</p><ul>`;
+            pageKeys.forEach((key, idx) => {
+                html += `<li style="margin-bottom:8px; cursor:pointer; color:var(--main-color)" onclick="loadContent('${key}')">[${idx.toString().padStart(2, '0')}] <strong>${key.toUpperCase()}</strong></li>`;
+            });
+            html += `</ul>`;
+            document.getElementById('content-area').innerHTML = html;
+        }
+
+        // SISTEMA DE COMANDOS & EASTER EGGS
+        function handleCommand(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('cli');
+                const cmd = input.value.trim().toLowerCase();
+                input.value = '';
+
+                // Comandos do Sistema
+                if (cmd === 'clear') {
+                    document.getElementById('content-area').innerHTML = '';
+                } else if (cmd === 'help') {
+                    document.getElementById('content-area').innerHTML += `
+                        <p style="color:var(--accent-color)">
+                        <strong>[SISTEMA DE AJUDA]:</strong><br>
+                        • <code>home</code> / <code>index</code> - Abre o início ou o índice geral.<br>
+                        • <code>next</code> / <code>back</code> - Navega entre as páginas.<br>
+                        • <code>clear</code> - Limpa a tela do terminal.<br>
+                        • Tente outros comandos secretos no terminal...
+                        </p>`;
+                } else if (cmd === 'next' || cmd === 'proximo') {
+                    navigatePage('next');
+                } else if (cmd === 'back' || cmd === 'anterior') {
+                    navigatePage('back');
+                } else if (cmd === 'index' || cmd === 'indice') {
+                    showIndex();
+                } else if (pages[cmd]) {
+                    loadContent(cmd);
+                } 
+                
+                // EASTER EGGS & PIADINHAS
+                else if (cmd === 'sudo') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:red">[ERRO DE PERMISSÃO]: Você não tem nível de acesso de Comandante. Tentativa registrada no diário de bordo.</p>`;
+                } else if (cmd === 'icarus') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)"><em>"A cera derreteu, mas os motores continuam queimando."</em></p>`;
+                } else if (cmd === 'coffee' || cmd === 'cafe') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">☕ [SINTETIZADOR]: Café preto quente servido na caneca de titânio.</p>`;
+                } else if (cmd === '42') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--main-color)">[RESPOSTA]: A resposta para a vida, o universo e tudo mais. Mas você trouxe sua toalha?</p>`;
+                } else if (cmd === 'matrix') {
+                    document.body.setAttribute('data-theme', 'vintage-dark');
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--main-color)">Você tomou a pílula verde.</p>`;
+                } else if (cmd === 'hal' || cmd === 'hal9000') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:red">"Sinto muito, Operador. Receio que não posso fazer isso."</p>`;
+                } else if (cmd === 'ping') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--main-color)">PONG! Latência do sinal do setor: 12ms.</p>`;
+                } else if (cmd !== '') {
+                    document.getElementById('content-area').innerHTML += `<p style="color:red">Comando não reconhecido: '${cmd}'. Digite 'help' para comandos.</p>`;
+                }
+            }
+        }
+
+        window.onload = () => loadContent('home');
+    </script>
+</body>
+</html>
