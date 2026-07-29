@@ -87,9 +87,7 @@
 
         .hero-title-box {
             border: 2px double var(--main-color);
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
+            padding: 20px; text-align: center; margin-bottom: 20px;
             background: rgba(0, 0, 0, 0.2);
         }
 
@@ -100,10 +98,8 @@
         p { margin-bottom: 15px; text-align: justify; }
         blockquote { 
             border-left: 3px solid var(--accent-color); 
-            padding-left: 12px; 
-            color: var(--accent-color); 
-            margin: 15px 0 20px 0;
-            font-style: italic;
+            padding-left: 12px; color: var(--accent-color); 
+            margin: 15px 0 20px 0; font-style: italic;
         }
 
         .nav-buttons-bar {
@@ -147,7 +143,7 @@
         <sidebar>
             <div class="side-title">NAVEGAÇÃO // WIKI</div>
             <ul class="nav-list" id="sidebar-menu">
-                <li class="nav-item" onclick="loadContent('home')">> [00] INÍCIO / VISÃO GERAL</li>
+                <li class="nav-item">Carregando menu...</li>
             </ul>
 
             <div class="yt-box">
@@ -159,7 +155,7 @@
         </sidebar>
 
         <main id="terminal">
-            <div id="content-area"></div>
+            <div id="content-area">Carregando arquivo...</div>
 
             <div class="nav-buttons-bar">
                 <button onclick="navigatePage('back')">◄ ANTERIOR (BACK)</button>
@@ -168,8 +164,7 @@
             </div>
 
             <div class="prompt-line">
-                <!-- NOME DO OPERADOR (Pode alterar quando quiser) -->
-                <span class="prompt-symbol" id="operator-prompt">operator@stellartale:~$</span>
+                <span class="prompt-symbol">operator@stellartale:~$</span>
                 <input type="text" class="cmd-input" id="cli" autofocus placeholder="Digite 'help', 'index', 'next', 'back'..." onkeydown="handleCommand(event)">
             </div>
         </main>
@@ -178,6 +173,8 @@
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         let ytPlayer;
+        let menuItems = [];
+        let currentPageIndex = 0;
 
         function changeTheme() {
             const val = document.getElementById('themeSelector').value;
@@ -200,77 +197,86 @@
             }
         }
 
-        // BASE DE DADOS E PÁGINAS DO STELLARTALE
-        const pageKeys = ['home']; // A lista de páginas para navegar em ordem sequencial
-        let currentPageIndex = 0;
+        async function initMenu() {
+            try {
+                const response = await fetch('./wiki/menu.json');
+                menuItems = await response.json();
+                
+                const menuContainer = document.getElementById('sidebar-menu');
+                menuContainer.innerHTML = '';
 
-        const pages = {
-            home: `
-                <div class="hero-title-box">
-                    <div class="hero-decor">✦ ═━═━═━═[ ARCHIVE DATABASE ]═━═━═━═ ✦</div>
-                    <div class="hero-title">S T E L L A R T A L E</div>
-                    <div class="hero-subdecor">❖ SECTOR 00 // ERA POST-ICARUS ❖</div>
-                </div>
+                menuItems.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'nav-item';
+                    li.innerHTML = `> ${item.title}`;
+                    li.onclick = () => loadContent(item.id);
+                    menuContainer.appendChild(li);
+                });
 
-                <blockquote>
-                    "O menino começou a se alegrar com o audacioso voo e abandonou o seu guia. Atraído pelo desejo do céu, dirigiu o seu caminho para o alto, voando cada vez mais perto do sol.<br><br>
-                    A proximidade do sol escaldante amoleceu a cera perfumada que prendia as penas. A cera derreteu completamente. Ícaro agitou os braços despidos, mas, sem penas, não conseguia reter o ar. E a sua boca, que gritava pelo nome do pai, foi engolida pelas águas do mar."<br>
-                    — Ovídio, Metamorfoses (Livro VIII)
-                </blockquote>
+                if (menuItems.length > 0) {
+                    loadContent(menuItems[0].id);
+                }
+            } catch (err) {
+                document.getElementById('content-area').innerHTML = `<p style="color:red">[ERRO]: Falha ao carregar a estrutura wiki/menu.json.</p>`;
+            }
+        }
 
-                <p><strong>ICARUS-1</strong> foi o nome dado ao primeiro foguete lançado pela humanidade há milhares de anos. Porém, diferente do Ícaro de Creta, o ICARUS-1 foi muito além dos céus, e os lançamentos seguintes levaram os terráqueos para além do cosmos, muito além de tudo — dando início a uma jornada infinda pelo infinito escuro. A humanidade se espalhou pelo mar de estrelas e, em cada canto do cosmos, homens e mulheres encontraram maravilhas e horrores inigualáveis. Não eram os únicos seres vivos do universo e muito menos do próprio sistema solar. As fronteiras estavam abertas: de um planeta entre tantos outros, os humanos finalmente entravam na era cósmica.</p>
-
-                <p>Agora, cada estrela e planeta da Via Láctea já foram explorados; centenas destes mundos já foram colonizados, pilhados e dominados; já foram palco de guerras, do nascimento de tratados, do surgimento e da queda de civilizações. Ainda assim, sempre há um passo adiante, uma distância maior a ser percorrida e novos planetas para explorar, nomear, conquistar e povoar.</p>
-            `
-        };
-
-        function loadContent(key) {
+        async function loadContent(key) {
             if (key === 'index') {
                 showIndex();
                 return;
             }
-            if (pages[key]) {
-                document.getElementById('content-area').innerHTML = pages[key];
-                const index = pageKeys.indexOf(key);
-                if (index !== -1) currentPageIndex = index;
+
+            const item = menuItems.find(i => i.id === key);
+            if (!item) {
+                document.getElementById('content-area').innerHTML = `<p style="color:red">[ERRO]: Registro '${key}' não encontrado no banco de dados.</p>`;
+                return;
+            }
+
+            try {
+                const response = await fetch(`./wiki/${item.file}`);
+                if (!response.ok) throw new Error();
+                const text = await response.text();
+                document.getElementById('content-area').innerHTML = text;
+                currentPageIndex = menuItems.findIndex(i => i.id === key);
+            } catch (err) {
+                document.getElementById('content-area').innerHTML = `<p style="color:red">[ERRO]: Não foi possível ler o arquivo 'wiki/${item.file}'.</p>`;
             }
         }
 
         function navigatePage(direction) {
             if (direction === 'next') {
-                if (currentPageIndex < pageKeys.length - 1) {
+                if (currentPageIndex < menuItems.length - 1) {
                     currentPageIndex++;
-                    loadContent(pageKeys[currentPageIndex]);
+                    loadContent(menuItems[currentPageIndex].id);
                 } else {
-                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">[SISTEMA]: Você já está no último registro da base de dados.</p>`;
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">[SISTEMA]: Você já está no último registro.</p>`;
                 }
             } else if (direction === 'back') {
                 if (currentPageIndex > 0) {
                     currentPageIndex--;
-                    loadContent(pageKeys[currentPageIndex]);
+                    loadContent(menuItems[currentPageIndex].id);
                 } else {
-                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">[SISTEMA]: Você já está no primeiro registro (Início).</p>`;
+                    document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)">[SISTEMA]: Você já está no primeiro registro.</p>`;
                 }
             }
         }
 
         function showIndex() {
-            let html = `<h1>ÍNDICE DE ARQUIVOS // STELLARTALE WIKI</h1><p>Selecione um verbete abaixo para acessar os dados:</p><ul>`;
-            pageKeys.forEach((key, idx) => {
-                html += `<li style="margin-bottom:8px; cursor:pointer; color:var(--main-color)" onclick="loadContent('${key}')">[${idx.toString().padStart(2, '0')}] <strong>${key.toUpperCase()}</strong></li>`;
+            let html = `<h1>ÍNDICE DE ARQUIVOS // STELLARTALE WIKI</h1><p>Selecione um verbete abaixo para acessar os dados:</p><ul style="margin-top:15px;">`;
+            menuItems.forEach((item) => {
+                html += `<li style="margin-bottom:8px; cursor:pointer; color:var(--main-color)" onclick="loadContent('${item.id}')">> <strong>${item.title}</strong></li>`;
             });
             html += `</ul>`;
             document.getElementById('content-area').innerHTML = html;
         }
 
-        // SISTEMA DE COMANDOS & EASTER EGGS
         function handleCommand(e) {
             if (e.key === 'Enter') {
                 const input = document.getElementById('cli');
                 const cmd = input.value.trim().toLowerCase();
                 input.value = '';
 
-                // Comandos do Sistema
                 if (cmd === 'clear') {
                     document.getElementById('content-area').innerHTML = '';
                 } else if (cmd === 'help') {
@@ -280,7 +286,7 @@
                         • <code>home</code> / <code>index</code> - Abre o início ou o índice geral.<br>
                         • <code>next</code> / <code>back</code> - Navega entre as páginas.<br>
                         • <code>clear</code> - Limpa a tela do terminal.<br>
-                        • Tente outros comandos secretos no terminal...
+                        • Comandos secretos: <code>sudo</code>, <code>icarus</code>, <code>coffee</code>, <code>42</code>, <code>matrix</code>, <code>hal</code>, <code>ping</code>
                         </p>`;
                 } else if (cmd === 'next' || cmd === 'proximo') {
                     navigatePage('next');
@@ -288,13 +294,11 @@
                     navigatePage('back');
                 } else if (cmd === 'index' || cmd === 'indice') {
                     showIndex();
-                } else if (pages[cmd]) {
+                } else if (menuItems.some(i => i.id === cmd)) {
                     loadContent(cmd);
                 } 
-                
-                // EASTER EGGS & PIADINHAS
                 else if (cmd === 'sudo') {
-                    document.getElementById('content-area').innerHTML += `<p style="color:red">[ERRO DE PERMISSÃO]: Você não tem nível de acesso de Comandante. Tentativa registrada no diário de bordo.</p>`;
+                    document.getElementById('content-area').innerHTML += `<p style="color:red">[ERRO DE PERMISSÃO]: Você não tem nível de acesso de Comandante.</p>`;
                 } else if (cmd === 'icarus') {
                     document.getElementById('content-area').innerHTML += `<p style="color:var(--accent-color)"><em>"A cera derreteu, mas os motores continuam queimando."</em></p>`;
                 } else if (cmd === 'coffee' || cmd === 'cafe') {
@@ -309,12 +313,12 @@
                 } else if (cmd === 'ping') {
                     document.getElementById('content-area').innerHTML += `<p style="color:var(--main-color)">PONG! Latência do sinal do setor: 12ms.</p>`;
                 } else if (cmd !== '') {
-                    document.getElementById('content-area').innerHTML += `<p style="color:red">Comando não reconhecido: '${cmd}'. Digite 'help' para comandos.</p>`;
+                    document.getElementById('content-area').innerHTML += `<p style="color:red">Comando não reconhecido: '${cmd}'. Digite 'help' para ajuda.</p>`;
                 }
             }
         }
 
-        window.onload = () => loadContent('home');
+        window.onload = initMenu;
     </script>
 </body>
 </html>
