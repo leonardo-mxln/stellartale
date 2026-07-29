@@ -1,0 +1,15 @@
+<div class="hero-title-box">
+    <div class="hero-decor">✦ ═━═━═━═[ ARCHIVE DATABASE ]═━═━═━═ ✦</div>
+    <div class="hero-title">S T E L L A R T A L E</div>
+    <div class="hero-subdecor">❖ SECTOR 00 // ERA POST-ICARUS ❖</div>
+</div>
+
+<blockquote>
+    "O menino começou a se alegrar com o audacioso voo e abandonou o seu guia. Atraído pelo desejo do céu, dirigiu o seu caminho para o alto, voando cada vez mais perto do sol.<br><br>
+    A proximidade do sol escaldante amoleceu a cera perfumada que prendia as penas. A cera derreteu completamente. Ícaro agitou os braços despidos, mas, sem penas, não conseguia reter o ar. E a sua boca, que gritava pelo nome do pai, foi engolida pelas águas do mar."<br>
+    — Ovídio, Metamorfoses (Livro VIII)
+</blockquote>
+
+<p><strong>ICARUS-1</strong> foi o nome dado ao primeiro foguete lançado pela humanidade há milhares de anos. Porém, diferente do Ícaro de Creta, o ICARUS-1 foi muito além dos céus, e os lançamentos seguintes levaram os terráqueos para além do cosmos, muito além de tudo — dando início a uma jornada infinda pelo infinito escuro. A humanidade se espalhou pelo mar de estrelas e, em cada canto do cosmos, homens e mulheres encontraram maravilhas e horrores inigualáveis. Não eram os únicos seres vivos do universo e muito menos do próprio sistema solar. As fronteiras estavam abertas: de um planeta entre tantos outros, os humanos finalmente entravam na era cósmica.</p>
+
+<p>Agora, cada estrela e planeta da Via Láctea já foram explorados; centenas destes mundos já foram colonizados, pilhados e dominados; já foram palco de guerras, do nascimento de tratados, do surgimento e da queda de civilizações. Ainda assim, sempre há um passo adiante, uma distância maior a ser percorrida e novos planetas para explorar, nomear, conquistar e povoar.</p>
