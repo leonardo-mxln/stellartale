@@ -2,7 +2,7 @@
   {
     "id": "inicio",
     "title": "[00] INÍCIO",
-    "file": "wiki/home.txt"
+    "file": "home.txt"
   },
   {
     "title": "POVOS",
@@ -10,12 +10,12 @@
       {
         "id": "povos-geral",
         "title": "► Visão Geral",
-        "file": "wiki/povos.txt"
+        "file": "povos.txt"
       },
       {
         "id": "humanos",
         "title": "► Humanos",
-        "file": "wiki/humanos.txt"
+        "file": "humanos.txt"
       }
     ]
   }
