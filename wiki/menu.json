@@ -5,6 +5,7 @@
     "file": "home.txt"
   },
   {
+    "id": "povos",
     "title": "POVOS",
     "submenu": [
       {
