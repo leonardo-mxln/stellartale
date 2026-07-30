@@ -1,7 +1,22 @@
 [
   {
-    "id": "home",
-    "title": "[00] INÍCIO / VISÃO GERAL",
-    "file": "home.txt"
+    "id": "inicio",
+    "title": "[00] INÍCIO",
+    "file": "wiki/home.txt"
+  },
+  {
+    "title": "POVOS",
+    "submenu": [
+      {
+        "id": "povos-geral",
+        "title": "► Visão Geral",
+        "file": "wiki/povos.txt"
+      },
+      {
+        "id": "humanos",
+        "title": "► Humanos",
+        "file": "wiki/humanos.txt"
+      }
+    ]
   }
 ]
