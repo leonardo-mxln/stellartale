@@ -1,0 +1,9 @@
+<h2 style="color:var(--main-color); border-bottom: 1px solid var(--dim-color); padding-bottom: 5px;"># Povos</h2>
+
+<p><b>Povo</b> <i>s. m.</i> [Do lat. <i>populus</i>] Conjunto de indivíduos ou entidades que constituem uma nação, os habitantes de um sistema planetário ou uma comunidade unida por cultura, linhagem e tradições; designa ainda a multidão de diferentes espécies ou matrizes e, no uso cotidiano, o grupo social de convivência[cite: 2].</p>
+
+<blockquote style="border-left: 3px solid var(--accent-color); padding-left: 10px; margin: 15px 0; color: var(--accent-color); font-style: italic;">
+    <b>Fonte:</b> DIG – Dicionário Intergaláctico Geral[cite: 2].
+</blockquote>
+
+<p>A seguinte seção busca catalogar e apresentar da forma mais imparcial e respeitosa possível toda e qualquer comunidade reconhecida pelas mais diversas organizações e instituições de ensino, prática e pensamento científico e sócio-universal[cite: 2]. Apesar da escolha do termo “Povo” grande parte das separações se dá pela noção de espécies, mas aqui, somente será considerado aquele grupo de indivíduos capazes de produzir cultura, linguagem, tradições, material criativo e científico[cite: 2]. As demais espécies, mesmo que dotadas de capacidades de comunicação simples ou inferior serão catalogadas na seção “Espécies”[cite: 2].</p>
