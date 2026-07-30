@@ -1,0 +1,63 @@
+<h2 style="color:var(--main-color); border-bottom: 1px solid var(--dim-color); padding-bottom: 5px;"># Humanos</h2>
+
+<p>Ainda que o termo Terráqueo seja ainda hoje o mais amplamente utilizado pela maioria dos povos, estão espalhados por todo o cósmos, e até mesmo em seu sistema solar de origem, estão espalhados por todos os planetas e luas habitáveis, e até mesmo aqueles que a milhares de anos jamais poderiam ser habitados foram conquistados pela espécie humana[cite: 1].</p>
+
+<p>Caminhantes das estrelas, conhecidos por serem pioneiros em muitas conquistas, exploradores, conquistadores e desbravadores[cite: 1]. Até o menor dos asteroides perdido na orbita de um planeta qualquer em um sistema solar qualquer pode-se encotrar um assentamento humano[cite: 1]. Sempre carregam consigo algo de sua origem, mesmo que pequena e fragmentada, sempre há uma memoria, um conceito interno, algo que remeta a Terra mesmo naqueles que nasceram a milhares de anos luz do planeta azul[cite: 1].</p>
+
+<!-- Caixa de Log do Registro -->
+<div style="border: 1px solid var(--dim-color); background: rgba(0, 0, 0, 0.4); padding: 15px; margin: 20px 0;">
+    <div style="color: var(--accent-color); font-weight: bold; margin-bottom: 8px;">[Registro: In- &gt;&gt;MoM-z14]</div>
+    <div style="color: var(--dim-color); font-size: 0.85rem; margin-bottom: 10px;">[??/??/????]</div>
+    <p>Não sei descrever… é como encarar o próprio conceito de existir… muito além, imensamente além, e aqui estou, o humano mais longe de casa…[cite: 1]</p>
+    <p>...</p>
+    <p>Não sei o que dizer… não sei o que pensar… acho que estou com medo, maravilhado… não sei se consigo voltar, não sei se vour ser o mesmo, nunca mais… Não vou voltar…[cite: 1]</p>
+    <p>...</p>
+    <p><b>Nota:</b> Estou enviando este registro, MAGNUM-KAOS-0200 chegou ao ponto além, não consigo processar a coordenada, vou registrar como muito além de MoM-z14[cite: 1]. Não vou voltar, não consigo, tenho suprimentos para mais um salto, dessa vez no escuro completo, não havera possibilidade de retorno passando desse ponto[cite: 1]. Avisem minha amada Clarice que não retornarei da missão[cite: 1].</p>
+    <div style="border-top: 1px dashed var(--dim-color); margin-top: 10px; padding-top: 5px; color: #ff5555; font-size: 0.85rem;">
+        <b>[STATUS]:</b> <i>Registro arquivado sob protocolo de emergência. Coordenada indisponível.</i>[cite: 1]
+    </div>
+</div>
+
+<!-- Tabela de Dados Técnicos -->
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem;">
+    <thead>
+        <tr style="border-bottom: 1px solid var(--main-color); color: var(--accent-color);">
+            <th style="padding: 8px; text-align: left;">Categoria</th>
+            <th style="padding: 8px; text-align: left;">Especificação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Denominação Oficial</b></td>
+            <td style="padding: 8px;">Humanos / Terráqueos (<i>Homo sapiens sapiens</i>)[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Matriz de Existência</b></td>
+            <td style="padding: 8px;">Orgânica / Biológica[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Mundo de Origem</b></td>
+            <td style="padding: 8px;">Terra - Sistema Solar - Braço de Órion (TR-SS-BO)[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Morfologia &amp; Fisiologia</b></td>
+            <td style="padding: 8px;">Bípedes, base de carbono e água; estatura média entre 1,50 ~ 1,90[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Ciclo de Vida</b></td>
+            <td style="padding: 8px;">80 a 120 anos padrão[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Adaptabilidade</b></td>
+            <td style="padding: 8px;">Requer oxigênio e gravidade próxima a 9,8 m/s²; alta capacidade de adaptação a novos ambientes[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Linguagem</b></td>
+            <td style="padding: 8px;">Verbal e não verbal; múltiplos idiomas com uso de tradutores universais[cite: 1]</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--dim-color);">
+            <td style="padding: 8px;"><b>Estrutura Social</b></td>
+            <td style="padding: 8px;">Diversificada (democracias, corporações, colônias); valoriza a autonomia e a inovação[cite: 1]</td>
+        </tr>
+    </tbody>
+</table>
